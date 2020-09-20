@@ -1,0 +1,38 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "An Express/Node.js based server using a custom “authentication” module that is designed to handle user registration and sign in using Basic, Bearer, or OAuth along with a custom “authorization” module that will grant/deny users access to the server based on their role or permissions level.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "lint:js": "eslint '**/*.js' --ignore-pattern node_modules/",
+    "lint:js:fix": "eslint '**/*.js' --ignore-pattern node_modules/ --fix",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdallahsafi-401-advanced-javascript/auth-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdallahsafi-401-advanced-javascript/auth-server/issues"
+  },
+  "homepage": "https://github.com/abdallahsafi-401-advanced-javascript/auth-server#readme",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "@code-fellows/supergoose": "^1.0.11",
+    "jest": "^26.4.2"
+  }
+}
