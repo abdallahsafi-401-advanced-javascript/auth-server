@@ -3,7 +3,12 @@
 const base64 = require('base-64');
 
 const users = require('../models/users/users-model.js');
-
+/**
+ * middleware to generate token when I user authorized sign in
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 module.exports = (req, res, next) => {
   // req.headers.authorization should be : "Basic sdkjdsljd="
   if (!req.headers.authorization) {

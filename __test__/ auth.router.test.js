@@ -1,0 +1,39 @@
+'use strict';
+
+const jwt = require('jsonwebtoken');
+const { server } = require('../src/server.js');
+const supergoose = require('@code-fellows/supergoose');
+
+const mockRequest = supergoose(server);
+
+describe('Auth Router', () => {
+  describe(`users signup/in`, () => {
+    it('can sign up', async () => {
+      const userData = { username: 'khaled', password: '1234' };
+      const results = await mockRequest.post('/signup').send(userData);
+      let user = results.body;
+      expect(userData[name]).toEqual(user[name]);
+    });
+
+    it('can signin with basic', async () => {
+      const userData = { username: 'waleed', password: '1234' };
+      await mockRequest.post('/signup').send(userData);
+      const results = await mockRequest.post('/signin').auth('waleed', '1234');
+      const token = jwt.verify(results.body.token, process.env.SECRET);
+      expect(token).toBeDefined();
+    });
+  });
+  it('can get() all users ', async () => {
+    const user1 = { username: 'ahmed', password: '1234' };
+    const user2 = { username: 'samy', password: '1234' };
+    const userList = [user1, user2];
+    await mockRequest.post('/users').send(user1);
+    await mockRequest.post('/users').send(user2);
+    const usersRet = await mockRequest.get('/users');
+    const userItem = usersRet.body.results;
+    userItem.forEach((key) => {
+      expect(userItem[key]).toEqual(userList[key]);
+    });
+  });
+
+});

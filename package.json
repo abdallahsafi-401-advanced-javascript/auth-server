@@ -4,7 +4,7 @@
   "description": "An Express/Node.js based server using a custom “authentication” module that is designed to handle user registration and sign in using Basic, Bearer, or OAuth along with a custom “authorization” module that will grant/deny users access to the server based on their role or permissions level.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose --coverage",
     "lint:js": "eslint '**/*.js' --ignore-pattern node_modules/",
     "lint:js:fix": "eslint '**/*.js' --ignore-pattern node_modules/ --fix",
     "start": "nodemon index.js"
@@ -30,5 +30,9 @@
     "mongoose": "^5.10.6",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "@code-fellows/supergoose": "^1.0.11",
+    "jest": "^26.4.2"
   }
 }

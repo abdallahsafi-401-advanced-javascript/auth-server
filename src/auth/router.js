@@ -23,7 +23,7 @@ router.get('/:model', handelGetAll);
 //------------- Handlers -----------
 
 /**
- * handeling the user post request
+ * handeling the signup post request
  * @param {object} req
  * @param {object} res
  */
@@ -38,8 +38,7 @@ async function handelSignUp(req, res) {
 }
 
 /**
- * handeling the user get request for all records
- * @param {object} req
+ * handeling the user signin request 
  * @param {object} res
  */
 function handelSignIn(req, res) {
