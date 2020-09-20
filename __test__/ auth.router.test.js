@@ -36,4 +36,20 @@ describe('Auth Router', () => {
     });
   });
 
+  it('should respond with 404 for not found routes', ()=>{
+    return mockRequest.get('/users/notFound').then(result=>{
+      expect(result.status).toBe(404);
+    }).catch(err=> {
+      console.log(err);
+    });
+  });
+
+  it('should respond with 500 for bad routes', ()=>{
+    return mockRequest.get('/bad').then(result=>{
+      expect(result.status).toBe(500);
+    }).catch(err=> {
+      console.log(err);
+    });
+  });
+
 });
