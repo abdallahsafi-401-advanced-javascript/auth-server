@@ -28,12 +28,11 @@ class Users {
   }
 
   async authenticateBasic(record) {
-    if (this.get(record.username)) {
-      let valid = await bcrypt.compare(
-        record.password,
-        this.get(record.username).password,
-      );
-      let returnValue = valid ? this.get(record.username) : Promise.reject();
+    let result = await this.get(record.username);
+    let user = result[0];
+    if (user) {
+      let valid = await bcrypt.compare(record.password, user.password);
+      let returnValue = valid ? user : Promise.reject();
       return returnValue;
     }
     return Promise.reject();

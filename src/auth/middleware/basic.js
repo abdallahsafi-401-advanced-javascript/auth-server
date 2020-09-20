@@ -6,7 +6,6 @@ const users = require('../models/users/users-model.js');
 
 module.exports = (req, res, next) => {
   // req.headers.authorization should be : "Basic sdkjdsljd="
-
   if (!req.headers.authorization) {
     next('Invalid Login');
     return;
@@ -15,14 +14,20 @@ module.exports = (req, res, next) => {
   // Pull out just the encoded part by splitting the header into an array on the space and popping off the 2nd element
   let basic = req.headers.authorization.split(' ').pop();
 
+
   // decodes to user:pass and splits it to an array
   let [user, pass] = base64.decode(basic).split(':');
+  let userRecord = {
+    username: user,
+    password: pass,
+  };
 
   // Is this user ok?
   users
-    .authenticateBasic(user, pass)
+    .authenticateBasic(userRecord)
     .then((validUser) => {
       req.token = users.generateToken(validUser);
+      req.user = validUser;
       next();
     })
     .catch((err) => next('Invalid Login'));
