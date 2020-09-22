@@ -48,7 +48,7 @@ This application was build with express Node.js framwork and it includes:
 - base46: decode and encode auth headers
 
 # UML diagram
-
+![image](./assets/auth-server.png)
 
 
 ## Change Log

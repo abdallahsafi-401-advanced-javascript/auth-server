@@ -3,9 +3,10 @@
 const express = require('express');
 const router = express.Router();
 const basicAuth = require('./middleware/basic.js');
+const bearerAuth = require('./middleware/bearer.js');
+
 const modelFinder = require('../middleware/model-finder.js');
 const users = require('./models/users/users-model.js');
-
 
 router.param('model', modelFinder.getModel);
 
@@ -18,7 +19,7 @@ router.post('/signup', handelSignUp);
 router.post('/signin', basicAuth, handelSignIn);
 
 // get all users
-router.get('/:model', handelGetAll);
+router.get('/:model', bearerAuth, handelGetAll);
 
 //------------- Handlers -----------
 
@@ -38,13 +39,13 @@ async function handelSignUp(req, res) {
 }
 
 /**
- * handeling the user signin request 
+ * handeling the user signin request
  * @param {object} res
  */
 function handelSignIn(req, res) {
   res
     .cookie('token', req.token, {
-      expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
+      expires: new Date(Date.now() + 1 * 3600000), // cookie will be removed after 1 hours
     })
     .set('token', req.token)
     .json({

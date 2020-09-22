@@ -13,7 +13,7 @@ class Users {
 
   /**
    * get a user by atribute
-   * @param {*} username 
+   * @param {*} username
    */
   get(username) {
     let name = username ? { username } : {};
@@ -22,7 +22,7 @@ class Users {
 
   /**
    * create new user and hash it is password before adding it to database
-   * @param {object} record 
+   * @param {object} record
    */
   async create(record) {
     let user = await this.get(record.username);
@@ -38,7 +38,7 @@ class Users {
 
   /**
    * check if the user exist
-   * @param {object} record 
+   * @param {object} record
    */
   async authenticateBasic(record) {
     let result = await this.get(record.username);
@@ -52,8 +52,26 @@ class Users {
   }
 
   /**
+   * check if the user authenticated
+   * @param {string} token
+   */
+  async authenticateToken(token) {
+    try {
+      let tokenObject = jwt.verify(token, process.env.SECRET);
+      let result = await this.get(tokenObject.username);
+      let user = result[0];
+      if (user) {
+        return Promise.resolve(tokenObject);
+      } else {
+        return Promise.reject();
+      }
+    } catch (e) {
+      return Promise.reject();
+    }
+  }
+  /**
    * generate a token to be stored in the client side
-   * @param {object} record 
+   * @param {object} record
    */
   generateToken(record) {
     let token = jwt.sign({ username: record.username }, process.env.SECRET);
