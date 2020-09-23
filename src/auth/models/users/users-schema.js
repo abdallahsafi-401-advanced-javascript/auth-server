@@ -10,8 +10,6 @@ const users = mongoose.Schema({
   password: { type: String, required: true },
 });
 
-users.methods.comparePassword =  function () {
 
-};
 
 module.exports = mongoose.model('users', users);
