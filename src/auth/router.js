@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const basicAuth = require('./middleware/basic.js');
 const bearerAuth = require('./middleware/bearer.js');
+const permissions = require('./middleware/acl.js');
 
 const modelFinder = require('../middleware/model-finder.js');
 const users = require('./models/users/users-model.js');
@@ -19,7 +20,8 @@ router.post('/signup', handelSignUp);
 router.post('/signin', basicAuth, handelSignIn);
 
 // get all users
-router.get('/:model', bearerAuth, handelGetAll);
+router.get('/:model', bearerAuth, permissions('read'), handelGetAll);
+
 
 //------------- Handlers -----------
 

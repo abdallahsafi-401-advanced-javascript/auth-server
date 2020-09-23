@@ -9,14 +9,18 @@ const mockRequest = supergoose(server);
 describe('Auth Router', () => {
   describe(`users signup/in`, () => {
     it('can sign up', async () => {
-      const userData = { username: 'khaled', password: '1234' };
+      const userData = {
+        username: 'khaled',
+        password: '1234',
+        role: 'regular',
+      };
       const results = await mockRequest.post('/signup').send(userData);
       let user = results.body;
       expect(userData[name]).toEqual(user[name]);
     });
 
     it('can signin with basic', async () => {
-      const userData = { username: 'waleed', password: '1234' };
+      const userData = { username: 'waleed', password: '1234', role: 'admin' };
       await mockRequest.post('/signup').send(userData);
       const results = await mockRequest.post('/signin').auth('waleed', '1234');
       const token = jwt.verify(results.body.token, process.env.SECRET);
@@ -24,10 +28,9 @@ describe('Auth Router', () => {
     });
   });
 
-
   it('can get() all users with bearer token', async () => {
-    const user1 = { username: 'ahmed', password: '1234' };
-    const user2 = { username: 'samy', password: '1234' };
+    const user1 = { username: 'ahmed', password: '1234', role: 'regular' };
+    const user2 = { username: 'samy', password: '1234', role: 'regular' };
     const userList = [user1, user2];
     await mockRequest.post('/users').send(user1);
     await mockRequest.post('/users').send(user2);

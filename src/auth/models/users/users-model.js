@@ -74,8 +74,27 @@ class Users {
    * @param {object} record
    */
   generateToken(record) {
-    let token = jwt.sign({ username: record.username }, process.env.SECRET);
+    let token = jwt.sign(
+      { username: record.username, role: record.role },
+      process.env.SECRET,
+    );
     return token;
+  }
+
+  /**
+   * check if the user has the permission
+   * @param {string} role 
+   * @param {string} action 
+   */
+  hasPermission(role, action) {
+    let actions = {
+      regular: ['readOwn'],
+      writer: ['read', 'create'],
+      editor: ['read', 'create', 'update'],
+      admin: ['read','create', 'update', 'delete'],
+    };
+
+    return actions[role].includes(action);
   }
 }
 
