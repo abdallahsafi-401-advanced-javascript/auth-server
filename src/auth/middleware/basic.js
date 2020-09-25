@@ -10,7 +10,6 @@ const users = require('../models/users/users-model.js');
  * @param {*} next 
  */
 module.exports = (req, res, next) => {
-  // req.headers.authorization should be : "Basic sdkjdsljd="
   if (!req.headers.authorization) {
     next('Invalid Login');
     return;

@@ -49,6 +49,7 @@ This application was build with express Node.js framwork and it includes:
 
 # UML diagram
 
+![image](./assets/auth-server-11.jpg)
 
 
 ## Change Log
