@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const basicAuth = require('./middleware/basic.js');
 const bearerAuth = require('./middleware/bearer.js');
+const oauth = require('./middleware/oauth.js');
 const permissions = require('./middleware/acl.js');
 
 const modelFinder = require('../middleware/model-finder.js');
@@ -19,9 +20,11 @@ router.post('/signup', handelSignUp);
 // signin
 router.post('/signin', basicAuth, handelSignIn);
 
+// signup using third party
+router.get('/oauth', oauth, handelOauth);
+
 // get all users
 router.get('/:model', bearerAuth, permissions('read'), handelGetAll);
-
 
 //------------- Handlers -----------
 
@@ -54,6 +57,14 @@ function handelSignIn(req, res) {
       token: req.token,
       user: req.user,
     });
+}
+
+function handelOauth(req, res) {
+  console.log('ok');
+  res.status(200).json({
+    token: req.token,
+    user: req.user,
+  });
 }
 
 /**
